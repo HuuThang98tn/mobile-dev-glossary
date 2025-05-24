@@ -129,4 +129,95 @@ Tài liệu này tổng hợp các thuật ngữ quan trọng trong phát triể
 
 ---
 
-> Nếu bạn cần thêm phiên bản **PDF, Notion, hoặc sơ đồ Mindmap**, đừng ngần ngại yêu cầu.
+# 🚀 Thuật Ngữ Chuyên Sâu Trong React Native
+
+Tài liệu này dành cho các lập trình viên React Native đã có kinh nghiệm, giúp hiểu rõ cơ chế nội bộ, tối ưu hiệu suất, tương tác native và build hệ thống lớn.
+
+---
+
+## 🧠 1. Kiến trúc nội bộ (Core Architecture)
+
+| Thuật ngữ                      | Mô tả                                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| **JSI (JavaScript Interface)** | Cơ chế mới thay thế Bridge truyền thống, giúp gọi native function từ JS không cần JSON serialization |
+| **Fabric**                     | Hệ thống rendering engine mới (tăng tốc rendering, async layout)                                     |
+| **TurboModules**               | Thay thế cho NativeModules cũ, cho phép lazy load module native khi cần                              |
+| **Shadow Tree**                | Cấu trúc trung gian biểu diễn UI được tính toán trước khi render thực tế                             |
+| **Reconciler**                 | Cơ chế so sánh Virtual DOM và cập nhật UI khi state thay đổi                                         |
+| **Renderer Threads**           | Bao gồm JS thread, UI thread, Native modules thread                                                  |
+| **Scheduler**                  | Quản lý ưu tiên task trong JS thread để tránh UI bị lag                                              |
+
+---
+
+## 🔁 2. Hiệu suất & Tối ưu hoá
+
+| Thuật ngữ                   | Mô tả                                                                                         |
+| --------------------------- | --------------------------------------------------------------------------------------------- |
+| **Batched Updates**         | React Native tự động gom nhiều state update lại thành 1 lần re-render để tiết kiệm tài nguyên |
+| **Offloading to Native**    | Di chuyển các tác vụ nặng như xử lý ảnh, video, animation sang native code                    |
+| **Memoization**             | Tối ưu re-render qua React.memo, useMemo, useCallback                                         |
+| **UI Blocking**             | Xảy ra khi JS thread bị chiếm dụng bởi tác vụ nặng (dẫn đến UI delay)                         |
+| **FPS (Frames Per Second)** | Đơn vị đo độ mượt, mục tiêu ≥ 60 FPS                                                          |
+| **InteractionManager**      | Đợi khi animation/UI hoàn thành mới chạy tác vụ JS để không làm giật hình                     |
+
+---
+
+## 🔐 3. Native Interop & Cầu nối
+
+| Thuật ngữ                                  | Mô tả                                                    |
+| ------------------------------------------ | -------------------------------------------------------- |
+| **Native Modules**                         | Module được viết bằng Java/Kotlin hoặc Objective-C/Swift |
+| **Bridging**                               | Cơ chế kết nối giữa JS và Native (cũ, bị thay bởi JSI)   |
+| **Callbacks / Promises in Native Modules** | Truyền kết quả async giữa JS và native                   |
+| **Headless JS**                            | Chạy code JS trong nền (background tasks)                |
+| **AppRegistry**                            | Entry point đăng ký các components chính cho native side |
+
+---
+
+## 🧪 4. Testing & Debug Tools
+
+| Thuật ngữ               | Mô tả                                                                 |
+| ----------------------- | --------------------------------------------------------------------- |
+| **Mock Native Modules** | Giả lập native module để test unit JS                                 |
+| **Flipper Plugins**     | Mở rộng khả năng inspect Redux, mạng, DB...                           |
+| **Hermes Debugger**     | Gỡ lỗi JS trực tiếp trong Hermes engine                               |
+| **Console Polyfill**    | Các hàm log như console.log được thay đổi để hoạt động trong thiết bị |
+
+---
+
+## 🧰 5. Build System & Release
+
+| Thuật ngữ            | Mô tả                                                               |
+| -------------------- | ------------------------------------------------------------------- |
+| **Hermes**           | JS Engine nhẹ, hiệu suất cao cho Android & iOS                      |
+| **Multidex**         | Khi số method vượt quá 64K, Android cần bật tính năng này           |
+| **Proguard**         | Làm rối & tối ưu code khi release Android build                     |
+| **Bundle Splitting** | Tách code theo từng màn hình/module để giảm dung lượng initial load |
+| **Inline Requires**  | Kỹ thuật lazy load module trong Metro bundler để giảm startup time  |
+
+---
+
+## 📚 6. Phát triển Module/Library riêng
+
+| Thuật ngữ                           | Mô tả                                                              |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| **react-native-builder-bob**        | CLI tool tạo boilerplate cho native module/package mới             |
+| **Monorepo (Lerna, Nx)**            | Quản lý nhiều package trong 1 repo (tốt khi bạn tự phát triển lib) |
+| **Codegen (RCT_EXPORT_MODULE)**     | Tự động generate bridge code khi viết native module                |
+| **Typed Native Modules (TS + JSI)** | Kết hợp TypeScript với JSI để native module có typed interface     |
+
+---
+
+## 🌐 7. Cross-platform nâng cao
+
+| Thuật ngữ                                              | Mô tả                                                  |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| **Platform-specific Code**                             | Dùng .ios.js / .android.js để viết riêng từng nền tảng |
+| **Dynamic Import (Platform.OS)**                       | Viết logic chọn module theo nền tảng tại runtime       |
+| **Linking / Permissions**                              | Giao tiếp với deep link, hệ thống quyền                |
+| **Push Notification (APNs, FCM)**                      | Tích hợp thông báo với native SDK                      |
+| **Background Task / Headless JS / Foreground Service** | Xử lý tác vụ chạy trong nền Android/iOS                |
+
+---
+
+> Tài liệu dành cho mid/senior muốn làm chủ React Native ở cấp độ chuyên sâu, tối ưu hóa sản phẩm và phát triển thư viện nội bộ. Nếu bạn cần bản PDF hoặc sơ đồ trực quan, hãy yêu cầu!
