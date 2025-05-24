@@ -219,5 +219,3 @@ Tài liệu này dành cho các lập trình viên React Native đã có kinh ng
 | **Background Task / Headless JS / Foreground Service** | Xử lý tác vụ chạy trong nền Android/iOS                |
 
 ---
-
-> Tài liệu dành cho mid/senior muốn làm chủ React Native ở cấp độ chuyên sâu, tối ưu hóa sản phẩm và phát triển thư viện nội bộ. Nếu bạn cần bản PDF hoặc sơ đồ trực quan, hãy yêu cầu!
